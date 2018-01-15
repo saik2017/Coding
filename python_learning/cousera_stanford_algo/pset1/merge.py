@@ -1,4 +1,3 @@
-
 NUMBERLIST_FILENAME = "G:/6.00.1x/coursera/pset1/numbers.txt"
 
 

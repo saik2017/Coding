@@ -4,6 +4,7 @@ import time
 
 
 def optimal_sequence(n):
+    #Count stores the number of steps
     count=[0,0,1,1]
     sequence=[[0],[1],[1,2],[1,3]]
     for m in range(4,n+1):
