@@ -6,6 +6,7 @@ def edit_distance(s, t):
     :param t: string2
     :return: The edit distance and also prints the alignment
     """
+
     #write your code here
     n=len(s)
     m=len(t)
