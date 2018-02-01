@@ -40,6 +40,7 @@ class BST(object):
         """
         if node1.key==key:
             return node1
+
         elif node1.key>key:
             if node1.getLeftChild()!=None:
                 return self.find(node1.getLeftChild(),key)

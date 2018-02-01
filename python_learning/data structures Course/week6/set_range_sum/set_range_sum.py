@@ -9,6 +9,7 @@ class Vertex:
   def __init__(self, key, sum, left, right, parent):
     (self.key, self.sum, self.left, self.right, self.parent) = (key, sum, left, right, parent)
 
+
 def update(v):
   if v == None:
     return
@@ -17,6 +18,7 @@ def update(v):
     v.left.parent = v
   if v.right != None:
     v.right.parent = v
+
 
 def smallRotation(v):
   parent = v.parent
@@ -39,6 +41,7 @@ def smallRotation(v):
       grandparent.left = v
     else: 
       grandparent.right = v
+
 
 def bigRotation(v):
   if v.parent.left == v and v.parent.parent.left == v.parent:
@@ -66,6 +69,7 @@ def splay(v):
     bigRotation(v)
   return v
 
+
 # Searches for the given key in the tree with the given root
 # and calls splay for the deepest visited node after that.
 # Returns pair of the result and the new root.
@@ -74,7 +78,9 @@ def splay(v):
 # bigger key (next value in the order).
 # If the key is bigger than all keys in the tree,
 # then result is None.
-def find(root, key): 
+
+
+def find(root, key):
   v = root
   last = root
   next = None
@@ -91,8 +97,11 @@ def find(root, key):
   root = splay(last)
   return (next, root)
 
+
+
+
 def split(root, key):  
-  (result, root) = find(root, key)  
+  (result, root) = find(root, key)
   if result == None:    
     return (root, None)  
   right = splay(result)
@@ -104,7 +113,8 @@ def split(root, key):
   update(right)
   return (left, right)
 
-  
+
+
 def merge(left, right):
   if left == None:
     return right
@@ -129,17 +139,67 @@ def insert(x):
   if right == None or right.key != x:
     new_vertex = Vertex(x, x, None, None, None)  
   root = merge(merge(left, new_vertex), right)
-  
-def erase(x): 
-  global root
-  # Implement erase yourself
-  pass
 
-def search(x): 
+
+def erase(x):
+  global root
+  if root==None:
+    return
+  # Implement erase yourself
+  if search(x)==False:
+    return
+  next=nextKey(x)
+  if next==None:
+    if root.left!=None:
+      root=root.left
+      root.parent=None
+    else:
+      root=None
+
+  else:
+    splay(next)
+    next,root=find(root,x)
+    L=root.left
+    R=root.right
+    if R!=None:
+      root=R
+      R.left=L
+      update(R)
+      if L!=None:
+        L.parent=R
+    elif L!=None:
+      root=L
+      L.parent=None
+    else:
+      root=None
+
+
+
+def nextKey(x):
+  global root
+  if root==None:
+    return None
+  next,root=find(root,x)
+  if root.right==None:
+    return None
+  temp=root.right
+  while temp.left!=None:
+    temp=temp.left
+  return temp
+
+
+
+def search(x):
   global root
   # Implement find yourself
-  
+  next,root=find(root,x)
+  if next==None:
+    return False
+
+  if next.key==x:
+    return True
   return False
+
   
 def sum(fr, to): 
   global root
@@ -147,8 +207,14 @@ def sum(fr, to):
   (middle, right) = split(middle, to + 1)
   ans = 0
   # Complete the implementation of sum
+  if middle==None:
+    return 0
+  ans=middle.sum
+  middle=merge(middle,right)
+  root=merge(left,middle)
 
   return ans
+
 
 MODULO = 1000000001
 n = int(stdin.readline())

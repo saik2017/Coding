@@ -81,17 +81,33 @@ class myDict(object):
                 break
         if iselem==False:
             raise KeyError
+#
+# d1=myDict()
+# d1.assign(2,3)
+# #print(d1.getval(2))
+# d1.assign(3,9)
+# #print(d1.getval(3))
+# #print(d1.getval(2))
+# #d1.assign(4,2)
+#
+# d1.delete(2)
+# #d1.delete(2)
+# #print(d1.getval(3))
 
-d1=myDict()
-d1.assign(2,3)
-#print(d1.getval(2))
-d1.assign(3,9)
-#print(d1.getval(3))
-#print(d1.getval(2))
-#d1.assign(4,2)
 
-d1.delete(2)
-#d1.delete(2)
-#print(d1.getval(3))
+test_list = [1,2,3]
+# test_list = set(test_list)
+l=test_list
+
+counter = 0
+
+for k in test_list:
+    l.append(k)
+    counter = counter + 1
+
+    if counter % 97 == 0:
+        print (counter)
+
+
 
 
